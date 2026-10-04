@@ -1,13 +1,14 @@
 package com.pushkar.todo.service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+
 import com.pushkar.todo.dto.TodoRequest;
 import com.pushkar.todo.dto.TodoResponse;
 import com.pushkar.todo.entity.Todo;
+import com.pushkar.todo.exception.ResourceNotFoundException;
 import com.pushkar.todo.repository.TodoRepository;
 
 @Service
@@ -37,13 +38,13 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoResponse getTodoById(Long id) {
-        Todo todo = todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
         return mapToResponse(todo);
     }
 
     @Override
     public TodoResponse updateTodo(Long id, TodoRequest request) {
-        Todo todo = todoRepository.findById(id).orElseThrow(() -> new RuntimeException("Todo not found with id: " + id));
+        Todo todo = todoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Todo not found with id: " + id));
 
         todo.setTitle(request.getTitle());
         todo.setDescription(request.getDescription());
@@ -56,7 +57,7 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public void deleteTodo(Long id) {
         if(!todoRepository.existsById(id)) {
-            throw new RuntimeException("Todo not found with id: " + id);
+            throw new ResourceNotFoundException("Todo not found with id: " + id);
         }
         todoRepository.deleteById(id);
     }
