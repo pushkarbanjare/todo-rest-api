@@ -18,7 +18,7 @@ public class Todo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Title is mandatory")
+    @NotBlank(message = "Title must not be blank")
     @Column(nullable = false)
     private String title;
 
