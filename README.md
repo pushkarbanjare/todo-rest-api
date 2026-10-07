@@ -1,4 +1,4 @@
-# todo-rest-api
+# Todo REST API
 
 A RESTful Todo API built with Spring Boot 3.5, demonstrating layered architecture (Controller → Service → Repository), DTO-based request/response separation, centralized exception handling, and both unit and integration test coverage.
 
